@@ -1,0 +1,83 @@
+.footer {
+  background: #1e1e2f;
+  color: #fff;
+  padding: 40px 20px 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-logo h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #f1c40f;
+}
+
+.footer-logo p {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 8px;
+}
+
+.footer-links h3,
+.footer-contact h3,
+.footer-social h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #f1c40f;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #bbb;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #f1c40f;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social a {
+  color: #bbb;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #f1c40f;
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  border-top: 1px solid #333;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 14px;
+  color: #aaa;
+}

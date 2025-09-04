@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a routerLink="/" class="logo-link">
+      <img src="https://i.postimg.cc/XYCN80gk/logo.png" alt="Logo" class="logo">
+    </a>
+
+    <!-- Botón hamburguesa para móviles -->
+    <div class="menu-toggle" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="nav-links" [class.active]="menuActive">
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/create-product">Crear Producto</a></li>
+      <li><a href="#">Equipos</a></li>
+      <li><a href="#">Ofertas</a></li>
+      <li><a href="#">Contacto</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/auth">Login / Registro</a></li>
+      <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor:pointer">Cerrar sesión</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="#"><i class="fas fa-search"></i></a>
+      <a href="#"><i class="fas fa-heart"></i><span class="badge">0</span></a>
+      <a href="#"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a>
+    </div>
+  </div>
+</nav>

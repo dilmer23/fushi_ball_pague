@@ -1,0 +1,29 @@
+<div class="auth-container">
+  <div class="tabs">
+    <button [class.active]="activeTab==='login'" (click)="switchTab('login')">Login</button>
+    <button [class.active]="activeTab==='register'" (click)="switchTab('register')">Registro</button>
+  </div>
+
+  <div class="form-container">
+    <!-- LOGIN -->
+    <form *ngIf="activeTab==='login'" [formGroup]="loginForm" (ngSubmit)="login()">
+      <h2>Login</h2>
+      <input type="email" placeholder="Correo" formControlName="email" />
+      <input type="password" placeholder="Contraseña" formControlName="password" />
+      <button type="submit">Ingresar</button>
+    </form>
+
+    <!-- REGISTRO -->
+    <form *ngIf="activeTab==='register'" [formGroup]="registerForm" (ngSubmit)="register()">
+      <h2>Registro</h2>
+      <input type="text" placeholder="Nombre" formControlName="name" />
+      <input type="text" placeholder="Celular" formControlName="phone" />
+      <input type="number" placeholder="Edad" formControlName="age" />
+      <input type="email" placeholder="Correo" formControlName="email" />
+      <input type="password" placeholder="Contraseña" formControlName="password" />
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

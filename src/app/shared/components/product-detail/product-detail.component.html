@@ -1,0 +1,34 @@
+<div class="product-detail" *ngIf="product">
+  <div class="detail-image">
+    <span *ngIf="product.tag" class="tag">{{ product.tag }}</span>
+    <img [src]="product.imageUrl" [alt]="product.name">
+  </div>
+
+  <div class="detail-info">
+    <h2>{{ product.name }}</h2>
+    <p class="description">{{ product.description }}</p>
+
+    <p class="price">
+      {{ product.price | currency:'COP':'symbol':'1.2-2' }}
+      <span *ngIf="product.oldPrice" class="old-price">
+        {{ product.oldPrice | currency:'COP':'symbol':'1.2-2' }}
+      </span>
+    </p>
+
+    <p class="rating">
+      ⭐ {{ product.rating }} / 5 ({{ product.reviews }} reseñas)
+    </p>
+
+    <div class="action-buttons">
+      <button class="btn add-to-cart">🛒 Agregar al carrito</button>
+      <button class="btn secondary">👀 Ver más</button>
+      <button class="btn whatsapp" (click)="sendWhatsAppMessage()">
+        📱 Consultar por WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Comentarios -->
+  <app-comments *ngIf="product" [comments]="productComments" [productId]="product.id">
+  </app-comments>
+</div>

@@ -1,0 +1,48 @@
+<div class="comments-section">
+  <h3>Comentarios de usuarios</h3>
+
+  <!-- Formulario -->
+<form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
+  <textarea placeholder="Escribe tu comentario..." formControlName="text"></textarea>
+
+  <!-- Selector de estrellas -->
+  <div class="rating-select">
+    <ng-container *ngFor="let star of [1,2,3,4,5]">
+      <span 
+        (click)="setRating(star)" 
+        [class.filled]="star <= commentForm.value.rating">
+        ★
+      </span>
+    </ng-container>
+  </div>
+
+  <button type="submit">Enviar</button>
+</form>
+
+
+  <!-- Tabla de comentarios -->
+  <table class="comments-table" *ngIf="comments.length > 0; else noComments">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Comentario</th>
+        <th>Calificación</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>{{ comment.user }}</td>
+        <td>{{ comment.text }}</td>
+        <td>
+          <span *ngFor="let star of [].constructor(comment.rating)">⭐</span>
+        </td>
+        <td>{{ comment.date | date:'shortDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noComments>
+    <p>No hay comentarios aún. ¡Sé el primero en opinar!</p>
+  </ng-template>
+</div>

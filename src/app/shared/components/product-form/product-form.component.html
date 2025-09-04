@@ -1,0 +1,41 @@
+<h2>Crear Producto</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>
+    Nombre:
+    <input type="text" formControlName="name">
+  </label>
+
+  <label>
+    Descripción:
+    <textarea formControlName="description"></textarea>
+  </label>
+
+  <label>
+    Precio:
+    <input type="number" formControlName="price">
+  </label>
+
+  <label>
+    Precio anterior:
+    <input type="number" formControlName="oldPrice">
+  </label>
+
+  <label>
+    Imagen:
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+  </label>
+
+  <div *ngIf="uploading">⏳ Subiendo imagen...</div>
+
+  <div *ngIf="form.value.imageUrl">
+    <p>Vista previa:</p>
+    <img [src]="form.value.imageUrl" width="200">
+  </div>
+
+  <label>
+    Etiqueta:
+    <input type="text" formControlName="tag">
+  </label>
+
+  <button type="submit" [disabled]="uploading || form.invalid">Guardar Producto</button>
+</form>

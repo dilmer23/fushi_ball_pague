@@ -1,0 +1,40 @@
+.product-list-container {
+  padding: 40px 10px; /* menos padding lateral en móviles */
+  text-align: center;
+}
+
+.product-list-container h2 {
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+/* Grid de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  justify-content: center; /* centra las cards si hay espacio extra */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5px;
+}
+
+/* Card individual */
+app-product-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* centra la card dentro de la columna */
+}
+
+/* Media queries para móviles muy pequeños */
+@media (max-width: 500px) {
+  .product-grid {
+    grid-template-columns: 1fr; /* una card por fila */
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .product-list-container {
+    padding: 30px 10px;
+  }
+}

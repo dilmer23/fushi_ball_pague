@@ -1,0 +1,9 @@
+<section class="category-list-section">
+  <div class="header">
+    <h2 class="title">Explora por Categorías</h2>
+    <p class="subtitle">Encuentra las camisetas de tus ligas y equipos favoritos</p>
+  </div>
+  <div class="category-grid">
+    <app-category-card *ngFor="let category of categories" [category]="category"></app-category-card>
+  </div>
+</section>

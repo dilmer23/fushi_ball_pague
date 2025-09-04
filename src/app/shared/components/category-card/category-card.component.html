@@ -1,0 +1,13 @@
+<div class="category-card">
+    <div class="card-overlay">
+        <span class="team-count">{{ category.teamCount }} equipos</span>
+    </div>
+    <img [src]="category.imageUrl" [alt]="category.name" class="card-image">
+    <div class="card-content">
+        <h3 class="card-title">{{ category.name }}</h3>
+        <p class="card-subtitle">{{ category.subtitle }}</p>
+        <a href="#" class="view-products-link">
+            Ver productos
+        </a>
+    </div>
+</div>
