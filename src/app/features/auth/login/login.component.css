@@ -1,7 +1,40 @@
-/* auth.component.css */
+/* Estilos para el contenedor de contraseña */
+.password-container {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.password-container input {
+  width: 86%;
+  padding-right: 40px; /* Espacio para el icono */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b8e6b;
+  z-index: 2;
+}
+
+/* Iconos usando pseudo-elementos (alternativa si no quieres usar fuentes de iconos) */
+.icon-eye::before {
+  content: "👁️";
+}
+
+.icon-eye-off::before {
+  content: "🔒";
+}
+
+/* Si prefieres usar una fuente de iconos como FontAwesome:
+   Reemplaza los pseudo-elementos con clases de FontAwesome */
+
+/* Estilos existentes se mantienen igual */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f0f5f0; /* fondo claro */
+  background: #f0f5f0;
   margin: 0;
   padding: 0;
 }
@@ -10,7 +43,7 @@ body {
   max-width: 400px;
   margin: 5vh auto;
   padding: 25px;
-  background: #1a3d2f; /* verde oscuro de fondo */
+  background: #1a3d2f;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 100, 50, 0.3);
   color: #ffffff;
@@ -37,8 +70,8 @@ body {
 
 .tabs button.active,
 .tabs button:hover {
-  background: #b2f2bb; /* verde claro */
-  color: #1a3d2f; /* texto verde oscuro */
+  background: #b2f2bb;
+  color: #1a3d2f;
   box-shadow: 0 0 10px rgba(178, 242, 187, 0.5);
 }
 
@@ -52,11 +85,11 @@ input {
   width: 92%;
   padding: 12px;
   margin-bottom: 15px;
-  border-radius: 10px; /* más redondeado */
-  border: 2px solid #b2f2bb; /* borde verde */
+  border-radius: 10px;
+  border: 2px solid #b2f2bb;
   outline: none;
-  background: #e8f5e9; /* verde muy claro */
-  color: #1a3d2f; /* texto verde oscuro */
+  background: #e8f5e9;
+  color: #1a3d2f;
   font-size: 14px;
 }
 
@@ -67,7 +100,7 @@ input::placeholder {
 button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background: #b2f2bb; /* verde claro */
+  background: #b2f2bb;
   color: #1a3d2f;
   border: none;
   border-radius: 10px;

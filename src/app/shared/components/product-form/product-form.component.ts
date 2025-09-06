@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '../../models/product.interface';
 
 @Component({
   selector: 'app-product-form',
@@ -14,8 +16,14 @@ import Swal from 'sweetalert2';
 export class ProductFormComponent implements OnInit {
   uploading = false;
   form!: FormGroup;
+  isEditMode = false;
+  productId: number | null = null;
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {}
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -28,8 +36,40 @@ export class ProductFormComponent implements OnInit {
       reviews: [0],
       tag: ['']
     });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      this.productId = Number(id);
+      this.loadProductData(this.productId);
+    }
   }
 
+  async loadProductData(id: number) {
+    try {
+      const product = await this.productService.getProductById(id);
+      if (product) {
+        this.form.patchValue({
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          oldPrice: product.oldPrice || null,
+          imageUrl: product.image_url,
+          rating: product.rating || 0,
+          reviews: product.reviews || 0,
+          tag: product.tag || '',
+          sizes: product.sizes || []
+        });
+      }
+    } catch (error) {
+      console.error('Error loading product data:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo cargar la información del producto'
+      });
+    }
+  }
   async onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -55,44 +95,66 @@ export class ProductFormComponent implements OnInit {
       this.uploading = false;
     }
   }
-
+  // En product-form.component.ts, modifica el método onSubmit
   async onSubmit() {
     if (this.form.valid) {
       try {
-        const product = await this.productService.createProduct(this.form.value as any);
+        let result: Product | null; // Define explícitamente el tipo
 
-        if (product) {
-          console.log('✅ Producto creado:', product);
-          Swal.fire({
-            icon: 'success',
-            title: 'Producto creado',
-            text: `El producto "${product.name}" se creó correctamente ✅`
-          });
+        if (this.isEditMode && this.productId) {
+          // Modo edición
+          result = await this.productService.updateProduct(this.productId, this.form.value);
 
-          // Limpia el formulario y la vista previa
-          this.form.reset({
-            name: '',
-            description: '',
-            price: 0,
-            oldPrice: null,
-            imageUrl: '',
-            rating: 0,
-            reviews: 0,
-            tag: ''
-          });
+          if (result) {
+            console.log('✅ Producto actualizado:', result);
+
+            // Mostrar alerta de éxito y redirigir al home
+            Swal.fire({
+              icon: 'success',
+              title: 'Producto actualizado',
+              text: `El producto "${result.name}" se actualizó correctamente ✅`,
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar'
+            }).then(() => {
+              // Redirigir al home después de hacer clic en Aceptar
+              this.router.navigate(['/']);
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Atención',
+              text: '⚠️ No se pudo actualizar el producto. Intenta de nuevo.'
+            });
+          }
         } else {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Atención',
-            text: '⚠️ No se pudo crear el producto. Intenta de nuevo.'
-          });
+          // Modo creación
+          result = await this.productService.createProduct(this.form.value as Omit<Product, 'id'>);
+
+          if (result) {
+            console.log('✅ Producto creado:', result);
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Producto creado',
+              text: `El producto "${result.name}" se creó correctamente ✅`,
+              didClose: () => {
+                this.router.navigate(['/product', result!.id]); // Usamos el operador ! para asegurar que no es null
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Atención',
+              text: '⚠️ No se pudo crear el producto. Intenta de nuevo.'
+            });
+          }
         }
       } catch (error) {
         console.error('❌ Error en onSubmit:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error inesperado',
-          text: '❌ Ocurrió un error al crear el producto.'
+          text: '❌ Ocurrió un error al guardar el producto.'
         });
       }
     } else {

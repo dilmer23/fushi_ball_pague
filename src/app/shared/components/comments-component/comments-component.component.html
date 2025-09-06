@@ -2,22 +2,20 @@
   <h3>Comentarios de usuarios</h3>
 
   <!-- Formulario -->
-<form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
-  <textarea placeholder="Escribe tu comentario..." formControlName="text"></textarea>
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
+    <textarea placeholder="Escribe tu comentario..." formControlName="text"></textarea>
 
-  <!-- Selector de estrellas -->
-  <div class="rating-select">
-    <ng-container *ngFor="let star of [1,2,3,4,5]">
-      <span 
-        (click)="setRating(star)" 
-        [class.filled]="star <= commentForm.value.rating">
-        ★
-      </span>
-    </ng-container>
-  </div>
+    <!-- Selector de estrellas -->
+    <div class="rating-select">
+      <ng-container *ngFor="let star of [1,2,3,4,5]">
+        <span (click)="setRating(star)" [class.filled]="star <= commentForm.value.rating">
+          ★
+        </span>
+      </ng-container>
+    </div>
 
-  <button type="submit">Enviar</button>
-</form>
+    <button type="submit">Enviar</button>
+  </form>
 
 
   <!-- Tabla de comentarios -->
@@ -32,13 +30,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let comment of comments">
-        <td>{{ comment.user }}</td>
-        <td>{{ comment.text }}</td>
-        <td>
+        <td data-label="Usuario">{{ comment.user }}</td>
+        <td data-label="Comentario">{{ comment.text }}</td>
+        <td data-label="Calificación">
           <span *ngFor="let star of [].constructor(comment.rating)">⭐</span>
         </td>
-        <td>{{ comment.date | date:'shortDate' }}</td>
+        <td data-label="Fecha">{{ comment.date | date:'shortDate' }}</td>
       </tr>
+
     </tbody>
   </table>
 

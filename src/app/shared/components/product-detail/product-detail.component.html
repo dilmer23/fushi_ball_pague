@@ -1,7 +1,19 @@
 <div class="product-detail" *ngIf="product">
+  <!-- Botones de administración en posición más visible -->
+  <div *ngIf="isAdmin" class="admin-actions-top">
+    <button class="btn edit" (click)="editProduct()" aria-label="Editar producto">
+      <span class="btn-icon">✏️</span>
+      <span class="btn-text">Editar</span>
+    </button>
+    <button class="btn delete" (click)="confirmDelete()" aria-label="Eliminar producto">
+      <span class="btn-icon">🗑️</span>
+      <span class="btn-text">Eliminar</span>
+    </button>
+  </div>
+
   <div class="detail-image">
     <span *ngIf="product.tag" class="tag">{{ product.tag }}</span>
-    <img [src]="product.imageUrl" [alt]="product.name">
+    <img [src]="product.image_url" [alt]="product.name">
   </div>
 
   <div class="detail-info">
@@ -14,14 +26,22 @@
         {{ product.oldPrice | currency:'COP':'symbol':'1.2-2' }}
       </span>
     </p>
+    <div class="product-sizes" *ngIf="product?.sizes?.length">
+      <h4>Selecciona tu talla:</h4>
+      <div class="sizes-container">
+        <span *ngFor="let size of product.sizes" class="size-chip" [class.selected]="size === selectedSize"
+          (click)="selectSize(size)">
+          {{ size | uppercase }}
+        </span>
+      </div>
+    </div>
 
     <p class="rating">
       ⭐ {{ product.rating }} / 5 ({{ product.reviews }} reseñas)
     </p>
 
     <div class="action-buttons">
-      <button class="btn add-to-cart">🛒 Agregar al carrito</button>
-      <button class="btn secondary">👀 Ver más</button>
+      <!-- <button class="btn add-to-cart">🛒 Agregar al carrito</button> -->
       <button class="btn whatsapp" (click)="sendWhatsAppMessage()">
         📱 Consultar por WhatsApp
       </button>
@@ -31,4 +51,28 @@
   <!-- Comentarios -->
   <app-comments *ngIf="product" [comments]="productComments" [productId]="product.id">
   </app-comments>
+
+  <!-- Botones de administración también al final para mayor accesibilidad
+  <div *ngIf="isAdmin" class="admin-actions-bottom">
+    <button class="btn edit" (click)="editProduct()" aria-label="Editar producto">
+      <span class="btn-icon">✏️</span>
+      <span class="btn-text">Editar producto</span>
+    </button>
+    <button class="btn delete" (click)="confirmDelete()" aria-label="Eliminar producto">
+      <span class="btn-icon">🗑️</span>
+      <span class="btn-text">Eliminar producto</span>
+    </button>
+  </div>
+</div> -->
+
+<!-- Modal de confirmación para eliminar -->
+<div class="modal-overlay" *ngIf="showDeleteConfirmation">
+  <div class="modal-content">
+    <h3>¿Estás seguro de eliminar este producto?</h3>
+    <p>Esta acción no se puede deshacer. El producto será eliminado permanentemente.</p>
+    <div class="modal-actions">
+      <button class="btn secondary" (click)="cancelDelete()">Cancelar</button>
+      <button class="btn delete" (click)="deleteProduct()">Sí, eliminar</button>
+    </div>
+  </div>
 </div>

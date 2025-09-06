@@ -1,16 +1,20 @@
 import { Routes } from '@angular/router';
 import { ProductDetailComponent } from './shared/components/product-detail/product-detail.component';
 import { ProductFormComponent } from './shared/components/product-form/product-form.component';
-import { AppComponent } from './app.component';
-import { HomeHomeComponentComponent } from './shared/components/home-home-component/home-home-component.component';
 import { AuthComponent } from './features/auth/login/login.component';
-import { VerifyComponent } from './features/auth/login/verify/verify.component';
+import { ProductComponent } from './features/home/product/product.component';
+import { VerifyComponent } from './features/auth/verify/verify.component';
+import { FavoritesComponent } from './features/home/favorites/favorites.component';
+import { LandingComponent } from './features/home/landing/landing.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeHomeComponentComponent }, 
+  { path: '', component: LandingComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'create-product', component: ProductFormComponent },
+  { path: 'edit-product/:id', component: ProductFormComponent },
   { path: 'auth', component: AuthComponent },
-  { path: 'auth/verify', component: VerifyComponent },
-  { path: '**', redirectTo: '' } 
+  { path: 'auth/confirm', component: VerifyComponent },
+  { path: 'product', component: ProductComponent },
+  { path: 'favorites', component: FavoritesComponent },
+  { path: '**', redirectTo: '' }
 ];

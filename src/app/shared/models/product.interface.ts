@@ -3,10 +3,13 @@ export interface Product {
   id: number;
   name: string;
   description: string; 
-  imageUrl: string;
+  image_url: string;
   price: number;
   oldPrice?: number; 
   rating: number; 
   reviews: number;
-  tag?: string; 
+  tag?: string;
+  is_popular?: boolean;
+  created_at?: any;
+  sizes?: string[]; 
 }

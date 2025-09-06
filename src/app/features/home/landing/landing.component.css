@@ -1,0 +1,72 @@
+.product-list-container {
+  padding: 40px 10px;
+  /* menos padding lateral en móviles */
+  text-align: center;
+}
+
+.product-list-container h2 {
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+/* Grid de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  /* centra las cards si hay espacio extra */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5px;
+}
+
+/* Card individual */
+app-product-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  /* centra la card dentro de la columna */
+}
+
+/* Media queries para móviles muy pequeños */
+@media (max-width: 500px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+    /* una card por fila */
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .product-list-container {
+    padding: 30px 10px;
+  }
+}
+
+.sport-border-title {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  padding: 15px 30px;
+  border: 3px solid #1a3c2b;
+  border-radius: 12px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background: #f8fafc;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.sport-border-title::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, #16a34a, #22c55e, #4ade80, #22c55e, #16a34a);
+  z-index: -1;
+  border-radius: 15px;
+  opacity: 0.1;
+}

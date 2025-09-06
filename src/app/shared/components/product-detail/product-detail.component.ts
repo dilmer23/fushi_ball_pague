@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.interface';
 import { Comment } from '../../models/comment.interface';
 import { CommentsComponent } from '../comments-component/comments-component.component';
+import { LoadingService } from '../../services/loading.service';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,19 +20,26 @@ export class ProductDetailComponent implements OnInit {
   product: Product | null = null;
   productComments: Comment[] = [];
   private readonly WHATSAPP_NUMBER = '573025229721';
+  selectedSize: string | null = null;
+  showDeleteConfirmation: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private router: Router,
+    private productService: ProductService,
+    private loadingService: LoadingService,
+    private auth: AuthService,
   ) { }
+
+  get isAdmin() { return this.auth.isAdmin(); }
 
   async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
+      this.loadingService.show();
       this.product = await this.productService.getProductById(id);
       this.productComments = await this.productService.getCommentsByProduct(id);
-      console.log('📌 Detalle producto:', this.product);
-      console.log('💬 Comentarios:', this.productComments);
+      this.loadingService.hide();
     }
   }
 
@@ -63,12 +73,44 @@ export class ProductDetailComponent implements OnInit {
   private formatWhatsAppMessage(): string {
     if (!this.product) return '';
 
-    return `Hola, estoy interesado en el siguiente producto:
-    
-*${this.product.name}*
-Precio: ${this.product.price.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
-${this.product.description}
+    return `Hola, estoy interesado en el siguiente producto:*${this.product.name}*
+Precio: ${this.product.price.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}${this.product.description}¿Podrían darme más información?`;
+  }
 
-¿Podrían darme más información?`;
+  selectSize(size: string) {
+    this.selectedSize = size;
+  }
+
+  async deleteProduct() {
+    if (!this.product) return;
+
+    const ok = await this.productService.softDeleteProduct(this.product.id);
+    if (ok) {
+      this.showDeleteConfirmation = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Se eliminó su producto correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+        toast: true,
+        position: 'top-end'
+      });
+      this.router.navigate(['/']);
+    }
+  }
+
+  editProduct(): void {
+    if (this.product) {
+      // Navegar a la página de edición con el ID del producto
+      this.router.navigate(['/edit-product', this.product.id]);
+    }
+  }
+
+  confirmDelete(): void {
+    this.showDeleteConfirmation = true;
+  }
+
+  cancelDelete(): void {
+    this.showDeleteConfirmation = false;
   }
 }

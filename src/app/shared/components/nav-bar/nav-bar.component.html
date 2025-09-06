@@ -13,18 +13,25 @@
 
     <ul class="nav-links" [class.active]="menuActive">
       <li><a routerLink="/">Inicio</a></li>
-      <li><a routerLink="/create-product">Crear Producto</a></li>
-      <li><a href="#">Equipos</a></li>
-      <li><a href="#">Ofertas</a></li>
-      <li><a href="#">Contacto</a></li>
+      <li><a *ngIf="isAdmin" routerLink="/create-product">Crear Producto</a></li>
+      <!-- <li><a href="#">Equipos</a></li> -->
+      <!-- <li><a href="#">Ofertas</a></li> -->
+      <li><a routerLink="/product">Ver Productos</a></li>
       <li *ngIf="!isLoggedIn"><a routerLink="/auth">Login / Registro</a></li>
-      <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor:pointer">Cerrar sesión</a></li>
+      <li *ngIf="isSesion">
+        <a (click)="logout()" style="cursor: pointer;" title="Cerrar sesión">
+          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
+      </li>
     </ul>
 
     <div class="nav-icons">
-      <a href="#"><i class="fas fa-search"></i></a>
-      <a href="#"><i class="fas fa-heart"></i><span class="badge">0</span></a>
-      <a href="#"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a>
+      <!-- <a href="#"><i class="fas fa-search"></i></a> -->
+      <a href="#" class="fav-icon" title="Mis favoritos" routerLink="/favorites">
+        <i class="fas fa-heart"></i>
+        <span class="badge" *ngIf="favCount > 0">{{ favCount }}</span>
+      </a>
+      <!-- <a href="#"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a> -->
     </div>
   </div>
 </nav>

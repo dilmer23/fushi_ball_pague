@@ -38,3 +38,30 @@ app-product-card {
     padding: 30px 10px;
   }
 }
+.sport-border-title {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  padding: 15px 30px;
+  border: 3px solid #1a3c2b;
+  border-radius: 12px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background: #f8fafc;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.sport-border-title::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, #16a34a, #22c55e, #4ade80, #22c55e, #16a34a);
+  z-index: -1;
+  border-radius: 15px;
+  opacity: 0.1;
+}

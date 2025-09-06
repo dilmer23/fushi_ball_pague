@@ -1,12 +1,14 @@
 <div class="product-card">
   <div class="product-header">
     <span *ngIf="product.tag" class="product-tag">{{ product.tag }}</span>
-    <button class="favorite-btn">
-      <i class="fas fa-heart"></i>
+    <button class="favorite-btn" [class.inactive]="!isSesion" (click)="onFavoriteClick()" [title]="buttonTitle">
+      <i class="fas" [class.fa-trash]="isFavoritesView" [class.fa-heart]="!isFavoritesView"
+        [class.favorited]="isFav && !isFavoritesView">
+      </i>
     </button>
   </div>
   <div class="product-image-container">
-    <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+    <img [src]="product.image_url" [routerLink]="['/product', product.id]" [alt]="product.name" class="product-image">
   </div>
   <div class="product-details">
     <h3 class="product-name">{{ product.name }}</h3>
@@ -15,14 +17,20 @@
       <span *ngIf="product.oldPrice" class="old-price">{{ product.oldPrice | currency:'COP':'symbol':'1.2-2' }}</span>
     </div>
     <div class="product-actions">
-      <button class="btn add-to-cart-btn">Agregar al Carrito</button>
-      <button class="btn view-btn" [routerLink]="['/product', product.id]">
-  <i class="fas fa-eye"></i>
-</button>
+      <!-- <button class="btn add-to-cart-btn">Agregar al Carrito</button> -->
+      <button class="btn add-to-cart-btn" [routerLink]="['/product', product.id]">
+        <i class="fas fa-eye"></i>
+      </button>
     </div>
     <div class="product-rating">
       <span *ngFor="let star of starsArray" class="star-icon">&#9733;</span>
       <span class="reviews-count">({{ product.reviews }} reseñas)</span>
     </div>
+    <div class="product-sizes" *ngIf="product.sizes?.length">
+      <span *ngFor="let size of product.sizes" class="size-chip">
+        {{ size }}
+      </span>
+    </div>
+
   </div>
 </div>

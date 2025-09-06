@@ -1,0 +1,15 @@
+<div class="product-list-container">
+  <h2 class="sport-border-title">Mis Favoritos</h2>
+
+  <div *ngIf="products.length === 0" class="empty">
+    Aún no tienes productos favoritos.
+  </div>
+
+  <div class="product-list-container">
+    <div class="product-grid">
+      <app-product-card *ngFor="let product of products" [product]="product" [isFavoritesView]="true"
+        (removedFromFavorites)="onRemovedFromFavorites($event)">
+      </app-product-card>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,14 @@
     <form *ngIf="activeTab==='login'" [formGroup]="loginForm" (ngSubmit)="login()">
       <h2>Login</h2>
       <input type="email" placeholder="Correo" formControlName="email" />
-      <input type="password" placeholder="Contraseña" formControlName="password" />
+      
+      <div class="password-container">
+        <input [type]="showLoginPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password" />
+        <span class="toggle-password" (click)="toggleLoginPasswordVisibility()">
+          <i class="icon" [class]="showLoginPassword ? 'icon-eye-off' : 'icon-eye'"></i>
+        </span>
+      </div>
+      
       <button type="submit">Ingresar</button>
     </form>
 
@@ -20,7 +27,14 @@
       <input type="text" placeholder="Celular" formControlName="phone" />
       <input type="number" placeholder="Edad" formControlName="age" />
       <input type="email" placeholder="Correo" formControlName="email" />
-      <input type="password" placeholder="Contraseña" formControlName="password" />
+      
+      <div class="password-container">
+        <input [type]="showRegisterPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password" />
+        <span class="toggle-password" (click)="toggleRegisterPasswordVisibility()">
+          <i class="icon" [class]="showRegisterPassword ? 'icon-eye-off' : 'icon-eye'"></i>
+        </span>
+      </div>
+      
       <button type="submit">Registrarse</button>
     </form>
 

@@ -1,15 +1,18 @@
 .hero-section {
   position: relative;
   width: 100%;
-  height: 600px; /* Ajusta la altura según necesites */
-  background-image: url('../../../assets/img/hero_sesion.png'); /* Asegúrate de que esta imagen exista */
+  height: 600px;
+  /* Ajusta la altura según necesites */
+  background-image: url('../../../assets/img/hero_sesion.png');
+  /* Asegúrate de que esta imagen exista */
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   color: #fff;
   text-align: left;
-  overflow: hidden; /* Para asegurar que el contenido no se desborde */
+  overflow: hidden;
+  /* Para asegurar que el contenido no se desborde */
 }
 
 /* Oscurece la imagen de fondo para mejorar la legibilidad del texto */
@@ -20,35 +23,44 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Capa oscura semitransparente */
+  background: rgba(0, 0, 0, 0.5);
+  /* Capa oscura semitransparente */
   z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2; /* Asegura que el contenido esté por encima de la capa oscura */
+  z-index: 2;
+  /* Asegura que el contenido esté por encima de la capa oscura */
   max-width: 800px;
-  margin-left: 10%; /* Ajusta el margen izquierdo */
+  margin-left: 10%;
+  /* Ajusta el margen izquierdo */
   padding: 20px;
 }
 
 .hero-content h1 {
-  font-size: 3.8rem; /* Ajusta el tamaño de la fuente */
+  font-size: 3.8rem;
+  /* Ajusta el tamaño de la fuente */
   line-height: 1.1;
   margin-bottom: 20px;
   font-weight: bold;
-  color: #fff; /* Color del texto "Las Mejores" */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para mejor contraste */
+  color: #fff;
+  /* Color del texto "Las Mejores" */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  /* Sombra para mejor contraste */
 }
 
 /* Estilo específico para la segunda línea del título */
-.hero-content h1 br + span { /* Si usas <span> o ajustas la línea de abajo */
-  color: #E74C3C; /* Color rojo para "Camisetas de Fútbol" */
+.hero-content h1 br+span {
+  /* Si usas <span> o ajustas la línea de abajo */
+  color: #E74C3C;
+  /* Color rojo para "Camisetas de Fútbol" */
 }
 
 /* Si prefieres usar una clase para la segunda línea, podrías hacer esto: */
 .hero-content h1 span.highlight {
-  color: #E74C3C; /* Rojo para "Camisetas de Fútbol" */
+  color: #E74C3C;
+  /* Rojo para "Camisetas de Fútbol" */
 }
 
 .hero-content p {
@@ -61,7 +73,8 @@
 
 .hero-buttons {
   display: flex;
-  gap: 20px; /* Espacio entre los botones */
+  gap: 20px;
+  /* Espacio entre los botones */
 }
 
 .btn {
@@ -75,7 +88,8 @@
 }
 
 .btn.primary {
-  background-color: #3498db; /* Azul */
+  background-color: #3498db;
+  /* Azul */
   color: #fff;
 }
 
@@ -85,7 +99,8 @@
 }
 
 .btn.secondary {
-  background-color: #2ecc71; /* Verde */
+  background-color: #2ecc71;
+  /* Verde */
   color: #fff;
   border: 2px solid #2ecc71;
 }
@@ -101,20 +116,25 @@
     height: 450px;
     text-align: center;
   }
+
   .hero-content {
     margin: 0 auto;
     padding: 15px;
   }
+
   .hero-content h1 {
     font-size: 2.5rem;
   }
+
   .hero-content p {
     font-size: 1rem;
   }
+
   .hero-buttons {
     flex-direction: column;
     align-items: center;
   }
+
   .btn {
     width: 80%;
   }
@@ -124,10 +144,122 @@
   .hero-section {
     height: 400px;
   }
+
   .hero-content h1 {
     font-size: 2rem;
   }
+
   .hero-content p {
     font-size: 0.9rem;
+  }
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-minimal {
+  padding: 16px 36px;
+  border: none;
+  border-radius: 50px;
+  /* Bordes completamente redondeados para un look moderno */
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
+}
+
+/* Botón primario - Estilo moderno con gradiente */
+.btn-minimal.primary {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+/* Efecto de brillo al pasar el cursor en botón primario */
+.btn-minimal.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-minimal.primary:hover::before {
+  left: 100%;
+}
+
+.btn-minimal.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Botón secundario - Estilo outline moderno */
+.btn-minimal.secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  position: relative;
+  z-index: 1;
+}
+
+/* Efecto de relleno al pasar el cursor en botón secundario */
+.btn-minimal.secondary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: white;
+  transition: all 0.3s ease;
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.btn-minimal.secondary:hover::after {
+  width: 100%;
+}
+
+.btn-minimal.secondary:hover {
+  color: #1a1a1a;
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Efecto de pulsación para ambos botones */
+.btn-minimal:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .btn-minimal {
+    width: 220px;
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-minimal {
+    width: 200px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
   }
 }

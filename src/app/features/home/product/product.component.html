@@ -1,0 +1,93 @@
+<div class="product-list-container">
+  <h2 class="sport-border-title">Nuestros Productos</h2>
+
+  <!-- Panel de Filtros (colapsable) -->
+  <div class="filters-panel">
+    <div class="filters-header" (click)="toggleFilters()">
+      <span>Filtros</span>
+      <i class="fa" [ngClass]="showFilters ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
+    </div>
+
+
+    <div class="filters-content" *ngIf="showFilters">
+      <div class="filter-group">
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onFilterChange()" placeholder="Buscar productos..."
+          class="search-input">
+      </div>
+
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Precio mínimo:</label>
+          <input type="number" [(ngModel)]="minPrice" (ngModelChange)="onFilterChange()" placeholder="Mínimo"
+            class="price-input">
+        </div>
+
+        <div class="filter-group">
+          <label>Precio máximo:</label>
+          <input type="number" [(ngModel)]="maxPrice" (ngModelChange)="onFilterChange()" placeholder="Máximo"
+            class="price-input">
+        </div>
+
+        <div class="filter-group">
+          <label>Rating mínimo:</label>
+          <select [(ngModel)]="minRating" (ngModelChange)="onFilterChange()">
+            <option [ngValue]="null">Todos</option>
+            <option value="4">4+ estrellas</option>
+            <option value="3">3+ estrellas</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="showPopularOnly" (ngModelChange)="onFilterChange()">
+            Solo populares
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Ordenar por:</label>
+          <select [(ngModel)]="sortBy" (ngModelChange)="onFilterChange()">
+            <option *ngFor="let option of sortOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+
+          <select [(ngModel)]="sortOrder" (ngModelChange)="onFilterChange()">
+            <option value="desc">Descendente</option>
+            <option value="asc">Ascendente</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <button (click)="clearFilters()" class="clear-btn">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contador de resultados -->
+  <div class="results-info">
+    <p>
+      Mostrando {{ filteredProductsCount }} de {{ totalProductsCount }} productos
+      <span *ngIf="searchTerm">para "{{ searchTerm }}"</span>
+    </p>
+  </div>
+
+  <!-- Grid de productos -->
+  <div class="product-grid">
+    <app-product-card *ngFor="let product of filteredProducts" [product]="product">
+    </app-product-card>
+  </div>
+
+  <!-- Mensaje si no hay resultados -->
+  <div *ngIf="filteredProducts.length === 0" class="no-results">
+    <p>No se encontraron productos que coincidan con tus filtros.</p>
+    <button (click)="clearFilters()" class="clear-btn">
+      Ver todos los productos
+    </button>
+  </div>
+</div>
